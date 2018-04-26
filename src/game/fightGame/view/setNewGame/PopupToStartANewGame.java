@@ -22,8 +22,11 @@ import game.fightGame.model.Difficulty;
 public class PopupToStartANewGame extends JDialog {
 	private static final long serialVersionUID = 2329737124851905773L;
 
-	private boolean sendData;
 	private JComboBox<String> classNames;
+	private JRadioButton[] buttons;
+
+	private String classSelected;
+	private Difficulty difficulty;
 
 	public PopupToStartANewGame(JFrame frame, String title, boolean modal, ArrayList<String> allClasses,
 			ArrayList<Difficulty> difficulties) {
@@ -37,7 +40,6 @@ public class PopupToStartANewGame extends JDialog {
 
 	// To show the popup
 	public void show() {
-		this.sendData = false;
 		this.setVisible(true);
 	}
 
@@ -63,7 +65,7 @@ public class PopupToStartANewGame extends JDialog {
 		difficultyPanel.setBackground(Color.WHITE);
 		difficultyPanel.setPreferredSize(new Dimension(440, 60));
 		difficultyPanel.setBorder(BorderFactory.createTitledBorder("Sélectionnez la difficulté de l'IA"));
-		JRadioButton[] buttons = new JRadioButton[difficulties.size()];
+		buttons = new JRadioButton[difficulties.size()];
 		ButtonGroup group = new ButtonGroup();
 
 		for (int i = 0; i < difficulties.size(); i++) {
@@ -91,13 +93,15 @@ public class PopupToStartANewGame extends JDialog {
 		this.getContentPane().add(controlPanel, BorderLayout.SOUTH);
 	}
 
-	// Set action to button
+	// Set action to buttons
 	private void addConfirmActionToButton(JButton button) {
 		button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				classSelected = (String) classNames.getSelectedItem();
+				difficulty = getBoxSelected();
+				setVisible(false);
 			}
 		});
 	}
@@ -107,9 +111,27 @@ public class PopupToStartANewGame extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				setVisible(false);
 			}
 		});
 	}
 
+	private Difficulty getBoxSelected() {
+		for (int i = 0; i < buttons.length; i++) {
+			if (buttons[i].isSelected()) {
+				return Difficulty.values()[i];
+			}
+		}
+
+		return null;
+	}
+
+	// Returning data
+	public String getClassSelected() {
+		return classSelected;
+	}
+
+	public Difficulty getDificulty() {
+		return difficulty;
+	}
 }

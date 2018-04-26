@@ -1,5 +1,9 @@
 package game.fightGame.controller;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+
+import game.fightGame.model.Difficulty;
 import game.fightGame.model.IFightGameModel;
 import game.fightGame.view.setNewGame.PopupToStartANewGame;
 
@@ -15,7 +19,8 @@ public class FightGameController {
 	}
 
 	private void startANewGame() {
-		PopupToStartANewGame popup = new PopupToStartANewGame(null, "Nouvelle partie", true);
+		ArrayList<Difficulty> difficulties = new ArrayList<Difficulty>(EnumSet.allOf(Difficulty.class));
+		PopupToStartANewGame popup = new PopupToStartANewGame(null, "Nouvelle partie", true, null, difficulties);
 		popup.show();
 	}
 
