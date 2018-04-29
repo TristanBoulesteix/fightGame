@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -13,11 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import game.fightGame.model.Difficulty;
+import game.fightGame.controller.Difficulty;
 
 public class PopupToStartANewGame extends JDialog {
 	private static final long serialVersionUID = 2329737124851905773L;
@@ -31,7 +32,7 @@ public class PopupToStartANewGame extends JDialog {
 	public PopupToStartANewGame(JFrame frame, String title, boolean modal, ArrayList<String> allClasses,
 			ArrayList<Difficulty> difficulties) {
 		super(frame, title, modal);
-		this.setSize(300, 400);
+		this.setSize(400, 220);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -39,7 +40,7 @@ public class PopupToStartANewGame extends JDialog {
 	}
 
 	// To show the popup
-	public void show() {
+	public void setVisible() {
 		this.setVisible(true);
 	}
 
@@ -48,22 +49,28 @@ public class PopupToStartANewGame extends JDialog {
 		// Initialization of the panel to choose the character class
 		JPanel classPanel = new JPanel();
 		classPanel.setBackground(Color.white);
-		classPanel.setPreferredSize(new Dimension(220, 60));
+		classPanel.setPreferredSize(new Dimension(380, 60));
 		classPanel.setBorder(BorderFactory.createTitledBorder("Sélectionnez votre classe"));
 		classNames = new JComboBox<String>();
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(1);
+				;
+			}
+		});
 
 		for (String className : allClasses) {
 			classNames.addItem(className);
 		}
 
-		JLabel classLabel = new JLabel("Classes :");
-		classPanel.add(classLabel);
 		classPanel.add(classNames);
 
 		// Initialization of the panel to select the difficulty AI
 		JPanel difficultyPanel = new JPanel();
 		difficultyPanel.setBackground(Color.WHITE);
-		difficultyPanel.setPreferredSize(new Dimension(440, 60));
+		difficultyPanel.setPreferredSize(new Dimension(380, 60));
 		difficultyPanel.setBorder(BorderFactory.createTitledBorder("Sélectionnez la difficulté de l'IA"));
 		buttons = new JRadioButton[difficulties.size()];
 		ButtonGroup group = new ButtonGroup();
@@ -73,6 +80,8 @@ public class PopupToStartANewGame extends JDialog {
 			group.add(buttons[i]);
 			difficultyPanel.add(buttons[i]);
 		}
+
+		buttons[0].setSelected(true);
 
 		// Initialization of buttons
 		JPanel controlPanel = new JPanel();

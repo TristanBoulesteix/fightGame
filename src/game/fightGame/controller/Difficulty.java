@@ -1,4 +1,4 @@
-package game.fightGame.model;
+package game.fightGame.controller;
 
 public enum Difficulty {
 	RANDOM("Aléatoire"), EASY("Facile"), HARD("Difficile");
