@@ -1,9 +1,9 @@
 package game.fightGame.model;
 
-import java.awt.Color;
+import java.awt.Image;
 
 public interface IArea {
 	public Dimension getDimension();
 
-	public Color getColor();
+	public Image getImage();
 }

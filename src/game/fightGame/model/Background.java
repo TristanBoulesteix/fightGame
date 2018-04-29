@@ -1,14 +1,23 @@
 package game.fightGame.model;
 
-import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Background implements IArea {
 	private Dimension sizeOfMap;
-	private Color color;
+	private Image image;
 
-	public Background(Dimension sizeOfMap, Color color) {
+	public Background(Dimension sizeOfMap) {
 		this.sizeOfMap = sizeOfMap;
-		this.color = color;
+
+		try {
+			image = ImageIO.read(new File("/Pictures/background.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -17,8 +26,8 @@ public class Background implements IArea {
 	}
 
 	@Override
-	public Color getColor() {
-		return color;
+	public Image getImage() {
+		return image;
 	}
 
 }

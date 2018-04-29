@@ -14,6 +14,11 @@ public class Dimension {
 		setWidth(dimension.getWidth());
 	}
 
+	public Dimension(double height, double width) {
+		setHeight((int) height);
+		setWidth((int) width);
+	}
+
 	public int getHeight() {
 		return height;
 	}

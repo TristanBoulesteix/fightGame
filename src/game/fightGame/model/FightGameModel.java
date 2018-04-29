@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class FightGameModel implements IFightGameModel {
 	private ICharacter[] characters;
 	private ArrayList<String> classesList;
+	private IArea background;
 
 	public FightGameModel() {
 		setCharacters(new ICharacter[2]);
@@ -58,6 +59,16 @@ public class FightGameModel implements IFightGameModel {
 
 	private void setClassesList(ArrayList<String> classesList) {
 		this.classesList = classesList;
+	}
+
+	@Override
+	public IArea getArea() {
+		return background;
+	}
+
+	@Override
+	public void buildArea(Dimension dimension) {
+		this.background = new Background(dimension);
 	}
 
 }
