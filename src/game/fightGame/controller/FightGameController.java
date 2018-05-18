@@ -35,7 +35,6 @@ public class FightGameController {
 
 	private void launchGame() {
 		GameFrame frame = new GameFrame("FightGame", model);
-		frame.setVisible(true);
 	}
 
 	public AI getComputer() {
