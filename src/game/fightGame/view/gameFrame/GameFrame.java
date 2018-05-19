@@ -23,9 +23,12 @@ public class GameFrame extends JFrame {
 	private Dimension dimensionFrame;
 
 	public GameFrame(String title, IFightGameModel model) {
+		model.buildArea();
+
 		this.model = model;
 		this.characters = this.model.getCharacters();
-		this.panel = new GamePanel(characters[0], characters[1], model);
+		this.panel = new GamePanel(this, characters[0], characters[1], model,
+				model.getArea().getRandomBackgroungImage());
 
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setTitle(title);

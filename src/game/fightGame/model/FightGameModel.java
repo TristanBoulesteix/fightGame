@@ -67,8 +67,8 @@ public class FightGameModel implements IFightGameModel {
 	}
 
 	@Override
-	public void buildArea(Dimension dimension) {
-		this.background = new Background(dimension);
+	public void buildArea() {
+		this.background = new Background();
 	}
 
 }

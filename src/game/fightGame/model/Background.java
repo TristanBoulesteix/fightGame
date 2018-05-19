@@ -1,32 +1,53 @@
 package game.fightGame.model;
 
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 
 public class Background implements IArea {
-	private Dimension sizeOfMap;
-	private Image image;
+	private final int NUMBER_OF_EXISTING_PICTURES = 3;
 
-	public Background(Dimension sizeOfMap) {
-		this.sizeOfMap = sizeOfMap;
+	private Image desert, forest, mountain;
 
+	public Background() {
 		try {
-			image = ImageIO.read(new File("/Pictures/background.png"));
+			desert = ImageIO.read(getClass().getResource("/Background_image/desert.jpg"));
+			forest = ImageIO.read(getClass().getResource("/Background_image/forest.jpg"));
+			mountain = ImageIO.read(getClass().getResource("/Background_image/mountain.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
-	public Dimension getDimension() {
-		return sizeOfMap;
-	}
+	public Image getRandomBackgroungImage() {
+		Image image;
 
-	@Override
-	public Image getImage() {
+		int rand = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+
+		System.out.println(rand);
+
+		switch (rand) {
+		case 1:
+			image = desert;
+			break;
+
+		case 2:
+			image = forest;
+			break;
+
+		case 3:
+			image = mountain;
+			break;
+
+		default:
+			image = mountain;
+			break;
+		}
+
 		return image;
 	}
 

@@ -6,11 +6,17 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import game.fightGame.model.Dimension;
 import game.fightGame.model.ICharacter;
@@ -23,22 +29,32 @@ public class GamePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 9083209086675517141L;
 
+	private JFrame currentFrame;
 	private JEditorPane textArea;
 	private JPanel buttonArea;
-	private JPanel gameArea;
+	private GameArea gameArea;
+
+	private Image background;
 
 	private JButton attack, block, special;
 
-	public GamePanel(ICharacter playerClass, ICharacter AIClass, IFightGameModel model) {
+	private final Action attacking = new Attack_Action();
+	private final Action blocking = new Block_Action();
+	private final Action specialAction = new Special_Action();
+
+	public GamePanel(JFrame currentFrame, ICharacter playerClass, ICharacter AIClass, IFightGameModel model,
+			Image backgroung) {
+		this.currentFrame = currentFrame;
 		this.textArea = new JEditorPane();
 		this.buttonArea = new JPanel();
-		this.gameArea = new JPanel();
+		this.gameArea = new GameArea();
+		this.background = backgroung;
 
 		this.setLayout(new BorderLayout());
 
 		this.add(gameArea, BorderLayout.NORTH);
 		this.add(buttonArea, BorderLayout.CENTER);
-		this.add(textArea, BorderLayout.SOUTH);
+		this.add(new JScrollPane(textArea), BorderLayout.SOUTH);
 	}
 
 	void initializeComponents(Dimension dimensionFrame) {
@@ -48,10 +64,9 @@ public class GamePanel extends JPanel {
 	}
 
 	private void initializeGameArea(Dimension dimensionFrame) {
-		gameArea.setBackground(Color.BLACK);
+		gameArea.addBackground(background);
 		gameArea.setPreferredSize(
 				new java.awt.Dimension(200, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) + 200));
-		gameArea.setBackground(Color.BLACK);
 		gameArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		gameArea.setOpaque(true);
 	}
@@ -64,14 +79,17 @@ public class GamePanel extends JPanel {
 		attack = new JButton("Attaque");
 		attack.setPreferredSize(new java.awt.Dimension(100, 400));
 		attack.setFont(new Font("Arial", Font.PLAIN, 40));
+		attack.setAction(attacking);
 
 		block = new JButton("Bloquage");
 		block.setPreferredSize(new java.awt.Dimension(100, 400));
 		block.setFont(new Font("Arial", Font.PLAIN, 40));
+		block.setAction(blocking);
 
 		special = new JButton("Pouvoir spécial");
 		special.setPreferredSize(new java.awt.Dimension(100, 400));
 		special.setFont(new Font("Arial", Font.PLAIN, 40));
+		special.setAction(specialAction);
 
 		GridBagConstraints cAttack = new GridBagConstraints();
 		cAttack.gridx = 0;
@@ -111,6 +129,47 @@ public class GamePanel extends JPanel {
 
 	public JPanel getGame() {
 		return gameArea;
+	}
+
+	// ---------------------Actions executed by buttons----------------------------
+
+	@SuppressWarnings("serial")
+	private class Attack_Action extends AbstractAction {
+		public Attack_Action() {
+			putValue(NAME, "Attaque");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			currentFrame.requestFocusInWindow();
+		}
+
+	}
+
+	@SuppressWarnings("serial")
+	private class Block_Action extends AbstractAction {
+		public Block_Action() {
+			putValue(NAME, "Blockage");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			currentFrame.requestFocusInWindow();
+		}
+
+	}
+
+	@SuppressWarnings("serial")
+	private class Special_Action extends AbstractAction {
+		public Special_Action() {
+			putValue(NAME, "Action spéciale");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			currentFrame.requestFocusInWindow();
+		}
+
 	}
 
 }

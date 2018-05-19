@@ -57,7 +57,6 @@ public class PopupToStartANewGame extends JDialog {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(1);
-				;
 			}
 		});
 
@@ -85,7 +84,9 @@ public class PopupToStartANewGame extends JDialog {
 
 		// Initialization of buttons
 		JPanel controlPanel = new JPanel();
+
 		JButton okButton = new JButton("OK");
+		this.getRootPane().setDefaultButton(okButton);
 		this.addConfirmActionToButton(okButton);
 
 		JButton cancelButton = new JButton("Cancel");

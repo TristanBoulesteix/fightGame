@@ -7,7 +7,7 @@ public interface IFightGameModel {
 
 	public IArea getArea();
 
-	public void buildArea(Dimension dimension);
+	public void buildArea();
 
 	public void setPlayerClass(String string);
 
