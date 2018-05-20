@@ -1,5 +1,7 @@
 package game.fightGame.model;
 
+import java.awt.Image;
+
 public interface ICharacter {
 	public void attack();
 
@@ -14,4 +16,6 @@ public interface ICharacter {
 	public boolean isBlocked();
 
 	void setBlocked();
+
+	public Image getSprite(int index);
 }

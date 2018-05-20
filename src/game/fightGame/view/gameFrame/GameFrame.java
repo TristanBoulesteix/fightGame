@@ -64,7 +64,7 @@ public class GameFrame extends JFrame {
 
 		this.setVisible(true);
 
-		this.generateGraphicContent(this.getSize().getWidth(), this.getSize().getHeight());
+		this.generateGraphicContent();
 
 		this.add(panel);
 
@@ -75,8 +75,7 @@ public class GameFrame extends JFrame {
 		this.requestFocusInWindow();
 	}
 
-	private void generateGraphicContent(double width, double height) {
-		dimensionFrame = new Dimension(height, width);
-		panel.initializeComponents(dimensionFrame);
+	private void generateGraphicContent() {
+		panel.initializeComponents();
 	}
 }

@@ -121,7 +121,7 @@ public class PopupToStartANewGame extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				System.exit(1);
 			}
 		});
 	}

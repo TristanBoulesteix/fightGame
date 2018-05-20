@@ -2,7 +2,6 @@ package game.fightGame.view.gameFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import game.fightGame.model.Dimension;
 import game.fightGame.model.ICharacter;
 import game.fightGame.model.IFightGameModel;
 
@@ -34,6 +32,8 @@ public class GamePanel extends JPanel {
 	private JPanel buttonArea;
 	private GameArea gameArea;
 
+	private ICharacter playerClass, AIClass;
+
 	private Image background;
 
 	private JButton attack, block, special;
@@ -48,6 +48,8 @@ public class GamePanel extends JPanel {
 		this.textArea = new JEditorPane();
 		this.buttonArea = new JPanel();
 		this.gameArea = new GameArea();
+		this.playerClass = playerClass;
+		this.AIClass = AIClass;
 		this.background = backgroung;
 
 		this.setLayout(new BorderLayout());
@@ -57,17 +59,17 @@ public class GamePanel extends JPanel {
 		this.add(new JScrollPane(textArea), BorderLayout.SOUTH);
 	}
 
-	void initializeComponents(Dimension dimensionFrame) {
-		this.initializeGameArea(dimensionFrame);
+	void initializeComponents() {
+		this.initializeGameArea();
 		this.initializeButtonArea();
 		this.initializeTextArea();
 	}
 
-	private void initializeGameArea(Dimension dimensionFrame) {
+	private void initializeGameArea() {
 		gameArea.addBackground(background);
 		gameArea.setPreferredSize(
 				new java.awt.Dimension(200, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) + 200));
-		gameArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		gameArea.addCharacterOnScreen(playerClass, AIClass);
 		gameArea.setOpaque(true);
 	}
 

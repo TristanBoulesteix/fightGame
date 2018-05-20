@@ -26,7 +26,7 @@ public class Background implements IArea {
 	public Image getRandomBackgroungImage() {
 		Image image;
 
-		int rand = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+		int rand = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_EXISTING_PICTURES + 1);
 
 		System.out.println(rand);
 

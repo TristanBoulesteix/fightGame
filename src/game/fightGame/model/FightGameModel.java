@@ -1,5 +1,6 @@
 package game.fightGame.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,7 +24,7 @@ public class FightGameModel implements IFightGameModel {
 	}
 
 	@Override
-	public void setPlayerClass(String character) {
+	public void setPlayerClass(String character) throws IOException {
 		ICharacter selectedCharacter = null;
 
 		switch (character) {

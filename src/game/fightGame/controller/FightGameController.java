@@ -1,5 +1,6 @@
 package game.fightGame.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
@@ -24,7 +25,13 @@ public class FightGameController {
 		PopupToStartANewGame popup = new PopupToStartANewGame(null, "Nouvelle partie", true, model.getClassesList(),
 				new ArrayList<Difficulty>(EnumSet.allOf(Difficulty.class)));
 		popup.setVisible();
-		model.setPlayerClass(popup.getClassSelected());
+
+		try {
+			model.setPlayerClass(popup.getClassSelected());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		initilizeAI(popup.getDificulty(), model.getClassesList());
 	}
 

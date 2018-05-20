@@ -1,5 +1,6 @@
 package game.fightGame.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface IFightGameModel {
@@ -9,7 +10,7 @@ public interface IFightGameModel {
 
 	public void buildArea();
 
-	public void setPlayerClass(String string);
+	public void setPlayerClass(String string) throws IOException;
 
 	public void setAIClass(ICharacter character);
 
