@@ -11,7 +11,7 @@ public class Tank extends Character {
 	private final static int PA = 1;
 
 	public Tank() throws IOException {
-		super(loadPictures());
+		super(loadPictures(), PA);
 		setCurrentLife(PV);
 	}
 
@@ -34,6 +34,19 @@ public class Tank extends Character {
 		sprites.add(blocking);
 
 		return sprites;
+	}
+
+	@Override
+	public String useSpecialPower(ICharacter target, String targetName, String executorName) {
+		String text = null;
+		int damages = this.getATTACK() + 1;
+
+		target.setCurrentLife(target.getCurrentLife() - damages);
+		this.setCurrentLife(this.getCurrentLife() - 1);
+
+		text = targetName + " s'est infligé  1 point de dégât pour infliger " + damages + " points de dégâts.";
+
+		return text;
 	}
 
 }

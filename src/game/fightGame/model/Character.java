@@ -3,30 +3,31 @@ package game.fightGame.model;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class Character implements ICharacter {
+public abstract class Character implements ICharacter {
+	private final int ATTACK;
 	private int currentLife;
+	private int damagesReceived = 0;
 	private ArrayList<Image> sprites;
 
 	private boolean blocked;
 
-	public Character(ArrayList<Image> sprites) {
+	public Character(ArrayList<Image> sprites, int attack) {
 		this.sprites = sprites;
 		blocked = false;
+		this.ATTACK = attack;
 	}
 
 	@Override
-	public void attack() {
+	public int attack(ICharacter target) {
+		int damages = this.getATTACK();
+		target.setCurrentLife(target.getCurrentLife() - this.getATTACK());
 
+		return damages;
 	}
 
 	@Override
 	public void block() {
 		setBlocked();
-	}
-
-	@Override
-	public void useSpecialPower() {
-
 	}
 
 	@Override
@@ -37,6 +38,7 @@ public class Character implements ICharacter {
 	@Override
 	public void setCurrentLife(int currentLife) {
 		this.currentLife = currentLife;
+		this.setDamagesReceived(currentLife);
 	}
 
 	@Override
@@ -60,6 +62,19 @@ public class Character implements ICharacter {
 		}
 
 		return sprite;
+	}
+
+	@Override
+	public int getATTACK() {
+		return ATTACK;
+	}
+
+	public int getDamagesReceived() {
+		return damagesReceived;
+	}
+
+	public void setDamagesReceived(int damagesReceived) {
+		this.damagesReceived = damagesReceived;
 	}
 
 }

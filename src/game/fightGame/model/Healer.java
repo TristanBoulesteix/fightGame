@@ -11,7 +11,7 @@ public class Healer extends Character {
 	private final static int PA = 1;
 
 	public Healer() throws IOException {
-		super(loadPictures());
+		super(loadPictures(), PA);
 		setCurrentLife(PV);
 	}
 
@@ -34,6 +34,23 @@ public class Healer extends Character {
 		sprites.add(blocking);
 
 		return sprites;
+	}
+
+	@Override
+	public String useSpecialPower(ICharacter target, String targetName, String executorName) {
+		String text = null;
+
+		if (getCurrentLife() == PV) {
+			text = targetName + " a récupéré 0 pv.";
+		} else if (getCurrentLife() == (PV - 1)) {
+			setCurrentLife(getCurrentLife() + 1);
+			text = targetName + " a récupéré 1 pv.";
+		} else {
+			setCurrentLife(getCurrentLife() + 2);
+			text = targetName + " a récupéré 2 pv.";
+		}
+
+		return text;
 	}
 
 }

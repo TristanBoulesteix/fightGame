@@ -11,7 +11,7 @@ public class Damager extends Character {
 	private final static int PA = 2;
 
 	public Damager() throws IOException {
-		super(loadPictures());
+		super(loadPictures(), PA);
 		setCurrentLife(PV);
 	}
 
@@ -34,6 +34,18 @@ public class Damager extends Character {
 		sprites.add(blocking);
 
 		return sprites;
+	}
+
+	@Override
+	public String useSpecialPower(ICharacter target, String targetName, String executorName) {
+		String text = null;
+
+		if (getDamagesReceived() > 0) {
+			target.setCurrentLife(target.getCurrentLife() - this.getATTACK());
+			text = targetName + " a renvoyé " + getDamagesReceived() + "points de dégâts sur " + executorName;
+		}
+
+		return text;
 	}
 
 }

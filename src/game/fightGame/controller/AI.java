@@ -8,18 +8,16 @@ import game.fightGame.model.Healer;
 import game.fightGame.model.ICharacter;
 import game.fightGame.model.Tank;
 
-public class AI {
-	final private Difficulty DIFFICULTY;
+public abstract class AI {
 	private ICharacter character;
 
-	public AI(final Difficulty DIFFICULTY, ArrayList<String> listClass) {
-		this.DIFFICULTY = DIFFICULTY;
-
+	public AI(ArrayList<String> listClass) {
 		try {
 			this.selectCharacter(listClass);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	private void selectCharacter(ArrayList<String> listClass) throws IOException {
@@ -49,5 +47,7 @@ public class AI {
 	public ICharacter getCharacter() {
 		return character;
 	}
+
+	public abstract Order getAction();
 
 }

@@ -1,12 +1,10 @@
 package game.fightGame.view.gameFrame;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -37,7 +35,7 @@ public class GameArea extends JPanel {
 		for (int x = 0; x < 6; x++) {
 			for (int y = 0; y < 18; y++) {
 				JLabel label = new JLabel((Icon) null, JLabel.CENTER);
-				label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				// label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 				GridBagConstraints cGridConstraints = new GridBagConstraints();
 				cGridConstraints.gridx = x;

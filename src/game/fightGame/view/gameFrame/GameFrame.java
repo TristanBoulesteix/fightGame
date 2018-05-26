@@ -4,9 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import game.fightGame.model.Dimension;
+import game.fightGame.controller.FightGameController;
 import game.fightGame.model.ICharacter;
 import game.fightGame.model.IFightGameModel;
 
@@ -20,15 +21,14 @@ public class GameFrame extends JFrame {
 	private IFightGameModel model;
 	private final ICharacter[] characters;
 	private GamePanel panel;
-	private Dimension dimensionFrame;
 
-	public GameFrame(String title, IFightGameModel model) {
+	public GameFrame(String title, IFightGameModel model, FightGameController controller) {
 		model.buildArea();
 
 		this.model = model;
 		this.characters = this.model.getCharacters();
 		this.panel = new GamePanel(this, characters[0], characters[1], model,
-				model.getArea().getRandomBackgroungImage());
+				model.getArea().getRandomBackgroungImage(), controller);
 
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setTitle(title);
@@ -73,9 +73,14 @@ public class GameFrame extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		this.requestFocusInWindow();
+
 	}
 
 	private void generateGraphicContent() {
 		panel.initializeComponents();
+	}
+
+	public JLabel getTextArea() {
+		return panel.getTextArea();
 	}
 }

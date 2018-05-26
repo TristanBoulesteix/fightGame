@@ -1,7 +1,7 @@
 package game.fightGame.view.gameFrame;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,29 +12,32 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import game.fightGame.controller.FightGameController;
+import game.fightGame.controller.Order;
 import game.fightGame.model.ICharacter;
 import game.fightGame.model.IFightGameModel;
 
 public class GamePanel extends JPanel {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9083209086675517141L;
 
 	private JFrame currentFrame;
-	private JEditorPane textArea;
+	private JLabel textArea;
 	private JPanel buttonArea;
 	private GameArea gameArea;
 
 	private ICharacter playerClass, AIClass;
 
 	private Image background;
+
+	private FightGameController controller;
 
 	private JButton attack, block, special;
 
@@ -43,14 +46,15 @@ public class GamePanel extends JPanel {
 	private final Action specialAction = new Special_Action();
 
 	public GamePanel(JFrame currentFrame, ICharacter playerClass, ICharacter AIClass, IFightGameModel model,
-			Image backgroung) {
+			Image background, FightGameController controller) {
 		this.currentFrame = currentFrame;
-		this.textArea = new JEditorPane();
+		this.textArea = new JLabel();
 		this.buttonArea = new JPanel();
 		this.gameArea = new GameArea();
 		this.playerClass = playerClass;
 		this.AIClass = AIClass;
-		this.background = backgroung;
+		this.background = background;
+		this.controller = controller;
 
 		this.setLayout(new BorderLayout());
 
@@ -68,28 +72,28 @@ public class GamePanel extends JPanel {
 	private void initializeGameArea() {
 		gameArea.addBackground(background);
 		gameArea.setPreferredSize(
-				new java.awt.Dimension(200, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) + 200));
+				new Dimension(200, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) + 200));
 		gameArea.addCharacterOnScreen(playerClass, AIClass);
 		gameArea.setOpaque(true);
 	}
 
 	private void initializeButtonArea() {
-		buttonArea.setPreferredSize(new java.awt.Dimension(0, 50));
+		buttonArea.setPreferredSize(new Dimension(0, 50));
 		buttonArea.setLayout(new GridBagLayout());
 
 		// Putting buttons
 		attack = new JButton("Attaque");
-		attack.setPreferredSize(new java.awt.Dimension(100, 400));
+		attack.setPreferredSize(new Dimension(100, 400));
 		attack.setFont(new Font("Arial", Font.PLAIN, 40));
 		attack.setAction(attacking);
 
 		block = new JButton("Bloquage");
-		block.setPreferredSize(new java.awt.Dimension(100, 400));
+		block.setPreferredSize(new Dimension(100, 400));
 		block.setFont(new Font("Arial", Font.PLAIN, 40));
 		block.setAction(blocking);
 
 		special = new JButton("Pouvoir spécial");
-		special.setPreferredSize(new java.awt.Dimension(100, 400));
+		special.setPreferredSize(new Dimension(100, 400));
 		special.setFont(new Font("Arial", Font.PLAIN, 40));
 		special.setAction(specialAction);
 
@@ -114,14 +118,13 @@ public class GamePanel extends JPanel {
 	}
 
 	private void initializeTextArea() {
-		textArea.setPreferredSize(new java.awt.Dimension(0, 700));
-		textArea.setEditable(false);
-		textArea.setEditable(false);
-		textArea.setDisabledTextColor(Color.BLACK);
+		textArea.setPreferredSize(new Dimension(0, 700));
+		textArea.setHorizontalAlignment(JLabel.LEFT);
+		textArea.setVerticalAlignment(JLabel.TOP);
 		textArea.setFocusable(false);
 	}
 
-	public JEditorPane getTextArea() {
+	public JLabel getTextArea() {
 		return textArea;
 	}
 
@@ -144,6 +147,7 @@ public class GamePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			currentFrame.requestFocusInWindow();
+			controller.sendPlayerAction(Order.ATTACK);
 		}
 
 	}
@@ -157,6 +161,7 @@ public class GamePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			currentFrame.requestFocusInWindow();
+			controller.sendPlayerAction(Order.BLOCK);
 		}
 
 	}
@@ -170,6 +175,7 @@ public class GamePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			currentFrame.requestFocusInWindow();
+			controller.sendPlayerAction(Order.SPECIAL);
 		}
 
 	}
