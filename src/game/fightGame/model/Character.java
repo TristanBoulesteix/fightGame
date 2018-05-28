@@ -27,7 +27,12 @@ public abstract class Character implements ICharacter {
 
 	@Override
 	public void block() {
-		setBlocked();
+		setBlocked(true);
+	}
+
+	@Override
+	public void setReady() {
+		setBlocked(false);
 	}
 
 	@Override
@@ -47,8 +52,8 @@ public abstract class Character implements ICharacter {
 	}
 
 	@Override
-	public void setBlocked() {
-		this.blocked = true;
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
 	}
 
 	@Override

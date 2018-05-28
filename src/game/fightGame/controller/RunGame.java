@@ -69,6 +69,10 @@ public class RunGame implements Runnable {
 				}
 
 				text.generateText();
+
+				computerCharacter.setReady();
+				playerCharacter.setReady();
+				playerActionChosed = false;
 			}
 
 			System.out.println("a");

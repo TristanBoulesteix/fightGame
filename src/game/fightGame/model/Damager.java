@@ -48,4 +48,10 @@ public class Damager extends Character {
 		return text;
 	}
 
+	@Override
+	public void setReady() {
+		super.setReady();
+		setDamagesReceived(0);
+	}
+
 }

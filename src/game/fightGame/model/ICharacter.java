@@ -9,13 +9,15 @@ public interface ICharacter {
 
 	public String useSpecialPower(ICharacter target, String targetName, String executorName);
 
+	public void setReady();
+
 	public int getCurrentLife();
 
 	public void setCurrentLife(int currentLife);
 
 	public boolean isBlocked();
 
-	void setBlocked();
+	public void setBlocked(boolean blocked);
 
 	public Image getSprite(int index);
 
